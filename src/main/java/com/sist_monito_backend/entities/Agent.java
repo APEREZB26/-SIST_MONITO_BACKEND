@@ -2,21 +2,18 @@ package com.sist_monito_backend.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@Transactional
-@NoArgsConstructor
 @Table(name = "agents")
 public class Agent implements Serializable {
    @Serial
@@ -39,4 +36,8 @@ public class Agent implements Serializable {
    @JoinColumn(name = "id_user")
    @JsonManagedReference
    private User user;
+
+   @OneToMany(cascade = CascadeType.ALL, mappedBy = "agent")
+   @JsonManagedReference
+   private Set<Survey> surveys;
 }
