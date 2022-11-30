@@ -51,24 +51,6 @@ public class AgentController {
       }
    }
 
-   @PostMapping("/agents")
-   public ResponseEntity<?> createAgent(@Valid @RequestBody Agent agent, BindingResult result) {
-      Map<String, Object> response = new HashMap<>();
-
-      if (validateErrorsFields.validateErrors(result, response))
-         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-
-      try {
-         agentService.save(agent);
-         response.put("message", "Agent created successfully");
-         return new ResponseEntity<>(response, HttpStatus.CREATED);
-      } catch (DataAccessException e) {
-         response.put("message", "Error inserting into database");
-         response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-      }
-   }
-
    @PutMapping("/agents/{id}")
    public ResponseEntity<?> update(@Valid @RequestBody Agent agent, BindingResult result, @PathVariable Long id) {
       Map<String, Object> response = new HashMap<>();

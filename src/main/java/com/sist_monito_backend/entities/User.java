@@ -50,7 +50,7 @@ public class User implements Serializable {
    @JsonBackReference
    private Agent agent;
 
-   @ManyToOne()
+   @OneToOne()
    @JoinColumn(name = "id_role")
    @JsonManagedReference
    private Role role;

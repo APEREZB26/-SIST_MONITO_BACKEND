@@ -24,7 +24,7 @@ public class Role implements Serializable {
    @Column(name = "name_role")
    private String rolName;
 
-   @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
+   @OneToOne(cascade = CascadeType.ALL, mappedBy = "role")
    @JsonBackReference
-   private Set<User> users;
+   private User user;
 }
