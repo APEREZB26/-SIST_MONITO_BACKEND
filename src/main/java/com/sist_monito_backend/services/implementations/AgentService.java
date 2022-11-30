@@ -39,7 +39,7 @@ public class AgentService implements IAgentService {
       agentRepository.save(agent);
    }
 
-   @Transactional
+   @Transactional()
    @Override
    public void delete(Long id) {
       agentRepository.deleteById(id);
