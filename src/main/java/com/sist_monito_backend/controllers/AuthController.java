@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @CrossOrigin(origins = {"*"})
@@ -26,15 +27,29 @@ public class AuthController {
    private IAgentService agentService;
 
    @PostMapping("/login-agent")
-   public ResponseEntity<?> loginAgent(@RequestBody User user) {
+   public ResponseEntity<?> loginAgent(@RequestBody User user, BindingResult result) {
+      String password = user.getPassword();
       Map<String, Object> response = new HashMap<>();
       Optional<Agent> agentLogin;
+
+      if (validateErrorsFields.validateErrors(result, response))
+         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 
       try {
          agentLogin = agentService.findByEmail(user.getEmail());
 
          if (agentLogin.isEmpty()) {
             response.put("message", "User does not exist");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+         }
+
+         if (password.trim().length() < 4 || password.trim() == null) {
+            response.put("message", "The password must be at least 4 characters long");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+         }
+
+         if (!Objects.equals(password, agentLogin.get().getUser().getPassword())) {
+            response.put("message", "Password is incorrect");
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
          }
 
