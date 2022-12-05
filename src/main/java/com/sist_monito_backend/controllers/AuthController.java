@@ -27,13 +27,10 @@ public class AuthController {
    private IAgentService agentService;
 
    @PostMapping("/login-agent")
-   public ResponseEntity<?> loginAgent(@RequestBody User user, BindingResult result) {
+   public ResponseEntity<?> loginAgent(@RequestBody User user) {
       String password = user.getPassword();
       Map<String, Object> response = new HashMap<>();
       Optional<Agent> agentLogin;
-
-      if (validateErrorsFields.validateErrors(result, response))
-         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 
       try {
          agentLogin = agentService.findByEmail(user.getEmail());

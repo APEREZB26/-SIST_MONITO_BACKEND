@@ -50,9 +50,9 @@ public class User implements Serializable {
    @JsonBackReference
    private Agent agent;
 
-   @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-   @JsonBackReference
-   private Auditor auditor;
+//   @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+//   @JsonBackReference
+//   private Auditor auditor;
 
    @OneToOne()
    @JoinColumn(name = "id_role")
