@@ -28,10 +28,15 @@ public class Survey implements Serializable {
    @JsonBackReference
    private Agent agent;
 
+//   @OneToOne(cascade = CascadeType.ALL)
+//   @JoinColumn(name = "id_audio")
+//   @JsonManagedReference
+//   private Audio audio;
+
    @OneToOne(cascade = CascadeType.ALL)
-   @JoinColumn(name = "id_audio")
+   @JoinColumn(name = "id_audit")
    @JsonManagedReference
-   private Audio audio;
+   private Audit audit;
 
    @Column(name = "created_at")
    @Temporal(TemporalType.DATE)
