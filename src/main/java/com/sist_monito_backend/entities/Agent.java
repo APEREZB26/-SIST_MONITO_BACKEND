@@ -32,9 +32,6 @@ public class Agent implements Serializable {
    @NotEmpty(message = "Can not be empty")
    private String dni;
 
-   @NotEmpty(message = "Can not be empty")
-   private String campaing;
-
    @OneToOne(cascade = CascadeType.ALL)
    @JoinColumn(name = "id_user")
    @JsonManagedReference
