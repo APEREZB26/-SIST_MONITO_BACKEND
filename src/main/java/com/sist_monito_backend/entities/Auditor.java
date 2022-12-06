@@ -33,13 +33,13 @@ public class Auditor implements Serializable {
     @NotEmpty(message = "Can not be empty")
     private String dni;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_user")
-    @JsonManagedReference
-    private User user;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "id_user")
+//    @JsonManagedReference
+//    private User user;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "auditor")
-    @JsonManagedReference
-    private Audit audits;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "auditor")
+//    @JsonManagedReference
+//    private Set<Audit> audits;
 
 }
