@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
@@ -28,12 +29,16 @@ public class Survey implements Serializable {
    @JsonBackReference
    private Agent agent;
 
-   @OneToOne(cascade = CascadeType.ALL)
-   @JoinColumn(name = "id_audio")
-   @JsonManagedReference
-   private Audio audio;
+   @NotEmpty(message = "Can not be empty")
+   @Column(nullable = false)
+   private String audio_url;
 
    @Column(name = "created_at")
    @Temporal(TemporalType.DATE)
    private Date createdAt;
+
+   @PrePersist
+   public void prePersist() {
+      createdAt = new Date();
+   }
 }
