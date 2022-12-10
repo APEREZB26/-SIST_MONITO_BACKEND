@@ -1,7 +1,6 @@
 package com.sist_monito_backend.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,6 +31,10 @@ public class Survey implements Serializable {
    @NotEmpty(message = "Can not be empty")
    @Column(nullable = false)
    private String audio_url;
+
+   @OneToOne(cascade = CascadeType.ALL, mappedBy = "survey")
+   @JsonBackReference
+   private Audit audit;
 
    @Column(name = "created_at")
    @Temporal(TemporalType.DATE)

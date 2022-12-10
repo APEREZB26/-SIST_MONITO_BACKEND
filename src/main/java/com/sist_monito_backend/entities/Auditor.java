@@ -1,5 +1,6 @@
 package com.sist_monito_backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,13 +34,13 @@ public class Auditor implements Serializable {
     @NotEmpty(message = "Can not be empty")
     private String dni;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "id_user")
-//    @JsonManagedReference
-//    private User user;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_user")
+    @JsonManagedReference
+    private User user;
 
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "auditor")
-//    @JsonManagedReference
-//    private Set<Audit> audits;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "auditor")
+    @JsonManagedReference
+    private Set<Audit> audits;
 
 }
