@@ -1,8 +1,10 @@
 package com.sist_monito_backend.controllers;
 
 import com.sist_monito_backend.entities.Agent;
+import com.sist_monito_backend.entities.Auditor;
 import com.sist_monito_backend.entities.User;
 import com.sist_monito_backend.services.interfaces.IAgentService;
+import com.sist_monito_backend.services.interfaces.IAuditorService;
 import com.sist_monito_backend.utils.ValidateErrorsFields;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -25,6 +27,9 @@ public class AuthController {
 
    @Autowired
    private IAgentService agentService;
+
+   @Autowired
+   private IAuditorService auditorService;
 
    @PostMapping("/login-agent")
    public ResponseEntity<?> loginAgent(@RequestBody User user) {
@@ -51,6 +56,38 @@ public class AuthController {
          }
 
          response.put("agent", agentLogin);
+         return new ResponseEntity<>(response, HttpStatus.OK);
+      } catch (DataAccessException e) {
+         response.put("message", "Error deleting client in the database");
+         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+      }
+   }
+
+   @PostMapping("/login-auditor")
+   public ResponseEntity<?> loginAuditor(@RequestBody User user) {
+      String password = user.getPassword();
+      Map<String, Object> response = new HashMap<>();
+      Optional<Auditor> auditorLogin;
+
+      try {
+         auditorLogin = auditorService.findByEmail(user.getEmail());
+
+         if (auditorLogin.isEmpty()) {
+            response.put("message", "User does not exist");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+         }
+
+         if (password.trim().length() < 4 || password.trim() == null) {
+            response.put("message", "The password must be at least 4 characters long");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+         }
+
+         if (!Objects.equals(password, auditorLogin.get().getUser().getPassword())) {
+            response.put("message", "Password is incorrect");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+         }
+
+         response.put("auditor", auditorLogin);
          return new ResponseEntity<>(response, HttpStatus.OK);
       } catch (DataAccessException e) {
          response.put("message", "Error deleting client in the database");
