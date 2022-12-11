@@ -25,7 +25,7 @@ public class Survey implements Serializable {
 
    @ManyToOne()
    @JoinColumn(name = "id_agent")
-   @JsonBackReference
+   @JsonBackReference(value = "agent")
    private Agent agent;
 
    @NotEmpty(message = "Can not be empty")
@@ -33,7 +33,7 @@ public class Survey implements Serializable {
    private String audio_url;
 
    @OneToOne(cascade = CascadeType.ALL, mappedBy = "survey")
-   @JsonBackReference
+   @JsonBackReference(value = "audit")
    private Audit audit;
 
    @Column(name = "created_at")

@@ -49,12 +49,11 @@ public class Audit implements Serializable {
 
     @ManyToOne()
     @JoinColumn(name = "id_auditor")
-    @JsonBackReference
+    @JsonBackReference(value = "auditor")
     private Auditor auditor;
 
     @OneToOne()
     @JoinColumn(name = "id_survey")
-    @JsonManagedReference
     private Survey survey;
 
 }
