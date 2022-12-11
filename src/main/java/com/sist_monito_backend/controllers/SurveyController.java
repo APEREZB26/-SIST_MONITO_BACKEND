@@ -18,16 +18,19 @@ public class SurveyController {
    @Autowired
    private ISurveyService surveyService;
 
-   @PostMapping("/create")
+//   @PostMapping("/create")
+   @PostMapping(value="/create", consumes={"application/json"})
    public ResponseEntity<?> createSurvey(@RequestBody Survey survey) {
+
       Map<String, Object> response = new HashMap<>();
+      System.out.println(survey);
 
       try {
          surveyService.save(survey);
          response.put("message", "Survey created successfully");
          return new ResponseEntity<>(response, HttpStatus.CREATED);
       } catch (DataAccessException e) {
-         response.put("message", "Error deleting client in the database");
+         response.put("message", e.getMessage());
          return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
       }
    }

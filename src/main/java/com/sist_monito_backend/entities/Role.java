@@ -25,6 +25,6 @@ public class Role implements Serializable {
    private String rolName;
 
    @OneToOne(cascade = CascadeType.ALL, mappedBy = "role")
-   @JsonBackReference
+   @JsonBackReference(value = "user")
    private User user;
 }

@@ -34,7 +34,6 @@ public class Agent implements Serializable {
 
    @OneToOne(cascade = CascadeType.ALL)
    @JoinColumn(name = "id_user")
-   @JsonManagedReference
    private User user;
 
    @NotEmpty(message = "Can not be empty")
@@ -42,6 +41,5 @@ public class Agent implements Serializable {
    private String campaign;
 
    @OneToMany(cascade = CascadeType.ALL, mappedBy = "agent")
-   @JsonManagedReference
    private Set<Survey> surveys;
 }

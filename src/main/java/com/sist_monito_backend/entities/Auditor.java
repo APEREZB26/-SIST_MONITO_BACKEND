@@ -36,11 +36,9 @@ public class Auditor implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_user")
-    @JsonManagedReference
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "auditor")
-    @JsonManagedReference
     private Set<Audit> audits;
 
 }
