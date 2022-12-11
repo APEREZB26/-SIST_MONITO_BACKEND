@@ -1,7 +1,6 @@
 package com.sist_monito_backend.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,12 +26,15 @@ public class Audit implements Serializable {
     private Long idAudit;
 
     @NotEmpty(message = "Can not be empty")
+    @Size(min = 1, max = 5, message = "The size must be between 1 and 5 value")
     private Double score1;
 
     @NotEmpty(message = "Can not be empty")
+    @Size(min = 1, max = 5, message = "The size must be between 1 and 5 value")
     private Double score2;
 
     @NotEmpty(message = "Can not be empty")
+    @Size(min = 1, max = 5, message = "The size must be between 1 and 5 value")
     private Double score3;
 
     @NotEmpty(message = "Can not be empty")
@@ -55,5 +57,10 @@ public class Audit implements Serializable {
     @OneToOne()
     @JoinColumn(name = "id_survey")
     private Survey survey;
+
+    @PrePersist
+    public void prePersist() {
+        createdAt = new Date();
+    }
 
 }

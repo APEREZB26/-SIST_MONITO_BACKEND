@@ -20,4 +20,9 @@ public class AuditService implements IAuditService {
     public List<Audit> findByAgentId(Long id) {
         return auditRepository.findByAgentId(id);
     }
+
+    @Override
+    public void save(Audit audit) {
+        auditRepository.save(audit);
+    }
 }

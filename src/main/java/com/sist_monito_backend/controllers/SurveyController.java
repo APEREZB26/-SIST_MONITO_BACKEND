@@ -17,8 +17,6 @@ import java.util.Map;
 public class SurveyController {
    @Autowired
    private ISurveyService surveyService;
-
-//   @PostMapping("/create")
    @PostMapping(value="/create", consumes={"application/json"})
    public ResponseEntity<?> createSurvey(@RequestBody Survey survey) {
 

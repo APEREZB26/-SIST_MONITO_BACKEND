@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface IAuditService {
     List<Audit> findByAgentId(Long id);
+
+    void save (Audit audit);
+
+
 }
