@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin(origins = {"*"})
@@ -17,6 +18,12 @@ import java.util.Map;
 public class SurveyController {
    @Autowired
    private ISurveyService surveyService;
+
+   @GetMapping("/surveys/{id}")
+   public List<Survey> getAuditById(@PathVariable Long id) {
+      return surveyService.findByAgentId(id);
+   }
+
    @PostMapping(value="/create", consumes={"application/json"})
    public ResponseEntity<?> createSurvey(@RequestBody Survey survey) {
 

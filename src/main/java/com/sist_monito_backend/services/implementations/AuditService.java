@@ -12,17 +12,17 @@ import java.util.List;
 @Service
 public class AuditService implements IAuditService {
 
-    @Autowired
-    private AuditRepository auditRepository;
+   @Autowired
+   private AuditRepository auditRepository;
 
-    @Transactional(readOnly = true)
-    @Override
-    public List<Audit> findByAgentId(Long id) {
-        return auditRepository.findByAgentId(id);
-    }
+   @Transactional(readOnly = true)
+   @Override
+   public List<Audit> findByAgentId(Long id) {
+      return auditRepository.findByAgentId(id);
+   }
 
-    @Override
-    public void save(Audit audit) {
-        auditRepository.save(audit);
-    }
+   @Override
+   public void save(Audit audit) {
+      auditRepository.save(audit);
+   }
 }
