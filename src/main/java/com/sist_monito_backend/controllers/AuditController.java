@@ -31,6 +31,7 @@ public class AuditController {
 
       try {
          score = (audit.getScore1() * 8) + (audit.getScore2() * 8) + (audit.getScore3() * 4);
+         audit.setScoreFinal(Math.round(score*100.0)/100.0);
          auditService.save(audit);
          response.put("message", "Audit created successfully");
          return new ResponseEntity<>(response, HttpStatus.CREATED);
